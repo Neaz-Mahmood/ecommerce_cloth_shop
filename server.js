@@ -1,9 +1,17 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
+const routes = require('./routes') // Auto-resolves to ./routes/index.js
 
+// Middleware to parse JSON bodies
+app.use(express.json())
+
+// Mount API routes
+app.use('/api', routes)
+
+// Root endpoint
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Welcome to the Ecommerce API. Visit /api/health for system status.')
 })
 
 app.listen(port, () => {
